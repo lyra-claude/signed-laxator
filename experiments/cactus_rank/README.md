@@ -36,6 +36,18 @@ The ordering is uniform across irreps: it is not a per-`lambda` accident but a
 structural feature of the cactus action. See `cactus_rank_data.csv` for the
 full 390-row table.
 
+### Caveat at $n=4$ (per Lyra's PR#1 review)
+
+The strict ordering $\text{Sep} < \text{Over}$ holds for $n \geq 5$; at $n=4$
+it becomes a **weak** inequality $\text{Sep} \leq \text{Over}$. When the two
+intervals are disjoint (the Separated case), the cactus generators act as
+transpositions in **disjoint parabolic subgroups** and therefore always
+commute, giving commutator rank exactly $0$. At $n=4$ the Overlapping category
+also collapses to rank $0$ on several low-dimensional irreps — there simply
+isn't enough room in $S_4$ for Overlapping to be strictly heavier than
+Separated. The 390 rows in `cactus_rank_data.csv` exhibit the ties at $n=4$
+directly; strict separation between Sep and Over is first seen at $n=5$.
+
 ## Reproducing
 
 The script is pure Python (no SageMath required). Specht modules are built via

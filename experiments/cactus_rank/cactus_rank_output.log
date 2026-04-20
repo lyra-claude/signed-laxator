@@ -1,0 +1,288 @@
+Pure-Python Specht module construction (Young's seminormal form)
+Container has no SageMath; using fractions + custom linear algebra.
+======================================================================
+VERIFICATION CROSS-CHECKS for n=4
+======================================================================
+
+Trivial rep lambda=(4,), dim=1:
+  s_(1,2): M=1  [OK]
+  s_(1,3): M=1  [OK]
+  s_(1,4): M=1  [OK]
+  s_(2,3): M=1  [OK]
+  s_(2,4): M=1  [OK]
+  s_(3,4): M=1  [OK]
+
+Sign rep lambda=(1, 1, 1, 1), dim=1:
+  s_(1,2) m=2: expected -1, got -1  [OK]
+  s_(1,3) m=3: expected -1, got -1  [OK]
+  s_(1,4) m=4: expected 1, got 1  [OK]
+  s_(2,3) m=2: expected -1, got -1  [OK]
+  s_(2,4) m=3: expected -1, got -1  [OK]
+  s_(3,4) m=2: expected -1, got -1  [OK]
+
+Trivial rep check: PASSED
+Sign rep check:    PASSED
+
+Dim sum check:
+  Sum of dim^2 over irreps of S_4 = 24  (expect 24)  [OK]
+  Sum of dim^2 over irreps of S_5 = 120  (expect 120)  [OK]
+
+Involution checks:
+
+Involution check (s_i^2 = Id) for all irreps of S_4:
+  Involution check: PASSED
+w_0^{[p,q]} squared = Id check for n=4: PASSED
+w_0^{[p,q]} squared = Id check for n=5: PASSED
+
+======================================================================
+S_4  --  single generator and pair scan
+======================================================================
+Cactus generators (6): [(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)]
+
+  lambda = (4,), dim = 1
+    s_(1,2): (+1 dim, -1 dim) = (1, 0)
+    s_(1,3): (+1 dim, -1 dim) = (1, 0)
+    s_(1,4): (+1 dim, -1 dim) = (1, 0)
+    s_(2,3): (+1 dim, -1 dim) = (1, 0)
+    s_(2,4): (+1 dim, -1 dim) = (1, 0)
+    s_(3,4): (+1 dim, -1 dim) = (1, 0)
+
+  lambda = (3, 1), dim = 3
+    s_(1,2): (+1 dim, -1 dim) = (2, 1)
+    s_(1,3): (+1 dim, -1 dim) = (2, 1)
+    s_(1,4): (+1 dim, -1 dim) = (1, 2)
+    s_(2,3): (+1 dim, -1 dim) = (2, 1)
+    s_(2,4): (+1 dim, -1 dim) = (2, 1)
+    s_(3,4): (+1 dim, -1 dim) = (2, 1)
+
+  lambda = (2, 2), dim = 2
+    s_(1,2): (+1 dim, -1 dim) = (1, 1)
+    s_(1,3): (+1 dim, -1 dim) = (1, 1)
+    s_(1,4): (+1 dim, -1 dim) = (2, 0)
+    s_(2,3): (+1 dim, -1 dim) = (1, 1)
+    s_(2,4): (+1 dim, -1 dim) = (1, 1)
+    s_(3,4): (+1 dim, -1 dim) = (1, 1)
+
+  lambda = (2, 1, 1), dim = 3
+    s_(1,2): (+1 dim, -1 dim) = (1, 2)
+    s_(1,3): (+1 dim, -1 dim) = (1, 2)
+    s_(1,4): (+1 dim, -1 dim) = (1, 2)
+    s_(2,3): (+1 dim, -1 dim) = (1, 2)
+    s_(2,4): (+1 dim, -1 dim) = (1, 2)
+    s_(3,4): (+1 dim, -1 dim) = (1, 2)
+
+  lambda = (1, 1, 1, 1), dim = 1
+    s_(1,2): (+1 dim, -1 dim) = (0, 1)
+    s_(1,3): (+1 dim, -1 dim) = (0, 1)
+    s_(1,4): (+1 dim, -1 dim) = (1, 0)
+    s_(2,3): (+1 dim, -1 dim) = (0, 1)
+    s_(2,4): (+1 dim, -1 dim) = (0, 1)
+    s_(3,4): (+1 dim, -1 dim) = (0, 1)
+
+======================================================================
+S_5  --  single generator and pair scan
+======================================================================
+Cactus generators (10): [(1, 2), (1, 3), (1, 4), (1, 5), (2, 3), (2, 4), (2, 5), (3, 4), (3, 5), (4, 5)]
+
+  lambda = (5,), dim = 1
+    s_(1,2): (+1 dim, -1 dim) = (1, 0)
+    s_(1,3): (+1 dim, -1 dim) = (1, 0)
+    s_(1,4): (+1 dim, -1 dim) = (1, 0)
+    s_(1,5): (+1 dim, -1 dim) = (1, 0)
+    s_(2,3): (+1 dim, -1 dim) = (1, 0)
+    s_(2,4): (+1 dim, -1 dim) = (1, 0)
+    s_(2,5): (+1 dim, -1 dim) = (1, 0)
+    s_(3,4): (+1 dim, -1 dim) = (1, 0)
+    s_(3,5): (+1 dim, -1 dim) = (1, 0)
+    s_(4,5): (+1 dim, -1 dim) = (1, 0)
+
+  lambda = (4, 1), dim = 4
+    s_(1,2): (+1 dim, -1 dim) = (3, 1)
+    s_(1,3): (+1 dim, -1 dim) = (3, 1)
+    s_(1,4): (+1 dim, -1 dim) = (2, 2)
+    s_(1,5): (+1 dim, -1 dim) = (2, 2)
+    s_(2,3): (+1 dim, -1 dim) = (3, 1)
+    s_(2,4): (+1 dim, -1 dim) = (3, 1)
+    s_(2,5): (+1 dim, -1 dim) = (2, 2)
+    s_(3,4): (+1 dim, -1 dim) = (3, 1)
+    s_(3,5): (+1 dim, -1 dim) = (3, 1)
+    s_(4,5): (+1 dim, -1 dim) = (3, 1)
+
+  lambda = (3, 2), dim = 5
+    s_(1,2): (+1 dim, -1 dim) = (3, 2)
+    s_(1,3): (+1 dim, -1 dim) = (3, 2)
+    s_(1,4): (+1 dim, -1 dim) = (3, 2)
+    s_(1,5): (+1 dim, -1 dim) = (3, 2)
+    s_(2,3): (+1 dim, -1 dim) = (3, 2)
+    s_(2,4): (+1 dim, -1 dim) = (3, 2)
+    s_(2,5): (+1 dim, -1 dim) = (3, 2)
+    s_(3,4): (+1 dim, -1 dim) = (3, 2)
+    s_(3,5): (+1 dim, -1 dim) = (3, 2)
+    s_(4,5): (+1 dim, -1 dim) = (3, 2)
+
+  lambda = (3, 1, 1), dim = 6
+    s_(1,2): (+1 dim, -1 dim) = (3, 3)
+    s_(1,3): (+1 dim, -1 dim) = (3, 3)
+    s_(1,4): (+1 dim, -1 dim) = (2, 4)
+    s_(1,5): (+1 dim, -1 dim) = (2, 4)
+    s_(2,3): (+1 dim, -1 dim) = (3, 3)
+    s_(2,4): (+1 dim, -1 dim) = (3, 3)
+    s_(2,5): (+1 dim, -1 dim) = (2, 4)
+    s_(3,4): (+1 dim, -1 dim) = (3, 3)
+    s_(3,5): (+1 dim, -1 dim) = (3, 3)
+    s_(4,5): (+1 dim, -1 dim) = (3, 3)
+
+  lambda = (2, 2, 1), dim = 5
+    s_(1,2): (+1 dim, -1 dim) = (2, 3)
+    s_(1,3): (+1 dim, -1 dim) = (2, 3)
+    s_(1,4): (+1 dim, -1 dim) = (3, 2)
+    s_(1,5): (+1 dim, -1 dim) = (3, 2)
+    s_(2,3): (+1 dim, -1 dim) = (2, 3)
+    s_(2,4): (+1 dim, -1 dim) = (2, 3)
+    s_(2,5): (+1 dim, -1 dim) = (3, 2)
+    s_(3,4): (+1 dim, -1 dim) = (2, 3)
+    s_(3,5): (+1 dim, -1 dim) = (2, 3)
+    s_(4,5): (+1 dim, -1 dim) = (2, 3)
+
+  lambda = (2, 1, 1, 1), dim = 4
+    s_(1,2): (+1 dim, -1 dim) = (1, 3)
+    s_(1,3): (+1 dim, -1 dim) = (1, 3)
+    s_(1,4): (+1 dim, -1 dim) = (2, 2)
+    s_(1,5): (+1 dim, -1 dim) = (2, 2)
+    s_(2,3): (+1 dim, -1 dim) = (1, 3)
+    s_(2,4): (+1 dim, -1 dim) = (1, 3)
+    s_(2,5): (+1 dim, -1 dim) = (2, 2)
+    s_(3,4): (+1 dim, -1 dim) = (1, 3)
+    s_(3,5): (+1 dim, -1 dim) = (1, 3)
+    s_(4,5): (+1 dim, -1 dim) = (1, 3)
+
+  lambda = (1, 1, 1, 1, 1), dim = 1
+    s_(1,2): (+1 dim, -1 dim) = (0, 1)
+    s_(1,3): (+1 dim, -1 dim) = (0, 1)
+    s_(1,4): (+1 dim, -1 dim) = (1, 0)
+    s_(1,5): (+1 dim, -1 dim) = (1, 0)
+    s_(2,3): (+1 dim, -1 dim) = (0, 1)
+    s_(2,4): (+1 dim, -1 dim) = (0, 1)
+    s_(2,5): (+1 dim, -1 dim) = (1, 0)
+    s_(3,4): (+1 dim, -1 dim) = (0, 1)
+    s_(3,5): (+1 dim, -1 dim) = (0, 1)
+    s_(4,5): (+1 dim, -1 dim) = (0, 1)
+
+======================================================================
+SUMMARY BY ARRANGEMENT (per n, per lambda)
+======================================================================
+ n lambda         arr           count  dim mean_joint  mean_comm  min_comm  max_comm
+ 4 [1, 1, 1, 1]   Adjacent          4    1      0.000      0.000         0         0
+ 4 [1, 1, 1, 1]   Nested            9    1      0.000      0.000         0         0
+ 4 [1, 1, 1, 1]   Overlapping       1    1      0.000      0.000         0         0
+ 4 [1, 1, 1, 1]   Separated         1    1      0.000      0.000         0         0
+ 4 [2, 1, 1]      Adjacent          4    3      0.000      2.000         2         2
+ 4 [2, 1, 1]      Nested            9    3      0.000      1.778         0         2
+ 4 [2, 1, 1]      Overlapping       1    3      0.000      0.000         0         0
+ 4 [2, 1, 1]      Separated         1    3      0.000      0.000         0         0
+ 4 [2, 2]         Adjacent          4    2      0.000      2.000         2         2
+ 4 [2, 2]         Nested            9    2      0.556      0.889         0         2
+ 4 [2, 2]         Overlapping       1    2      1.000      0.000         0         0
+ 4 [2, 2]         Separated         1    2      1.000      0.000         0         0
+ 4 [3, 1]         Adjacent          4    3      1.000      2.000         2         2
+ 4 [3, 1]         Nested            9    3      0.556      1.778         0         2
+ 4 [3, 1]         Overlapping       1    3      1.000      0.000         0         0
+ 4 [3, 1]         Separated         1    3      1.000      0.000         0         0
+ 4 [4]            Adjacent          4    1      1.000      0.000         0         0
+ 4 [4]            Nested            9    1      1.000      0.000         0         0
+ 4 [4]            Overlapping       1    1      1.000      0.000         0         0
+ 4 [4]            Separated         1    1      1.000      0.000         0         0
+ 5 [1, 1, 1, 1, 1] Adjacent         10    1      0.000      0.000         0         0
+ 5 [1, 1, 1, 1, 1] Nested           25    1      0.080      0.000         0         0
+ 5 [1, 1, 1, 1, 1] Overlapping       5    1      0.200      0.000         0         0
+ 5 [1, 1, 1, 1, 1] Separated         5    1      0.000      0.000         0         0
+ 5 [2, 1, 1, 1]   Adjacent         10    4      0.000      2.000         2         2
+ 5 [2, 1, 1, 1]   Nested           25    4      0.000      1.920         0         4
+ 5 [2, 1, 1, 1]   Overlapping       5    4      0.000      1.600         0         4
+ 5 [2, 1, 1, 1]   Separated         5    4      0.000      0.000         0         0
+ 5 [2, 2, 1]      Adjacent         10    5      0.000      4.000         4         4
+ 5 [2, 2, 1]      Nested           25    5      0.600      2.720         0         4
+ 5 [2, 2, 1]      Overlapping       5    5      0.600      2.400         0         4
+ 5 [2, 2, 1]      Separated         5    5      1.000      0.000         0         0
+ 5 [3, 1, 1]      Adjacent         10    6      0.800      4.000         4         4
+ 5 [3, 1, 1]      Nested           25    6      0.360      3.520         0         4
+ 5 [3, 1, 1]      Overlapping       5    6      0.400      2.400         0         4
+ 5 [3, 1, 1]      Separated         5    6      1.000      0.000         0         0
+ 5 [3, 2]         Adjacent         10    5      1.000      4.000         4         4
+ 5 [3, 2]         Nested           25    5      1.120      2.720         0         4
+ 5 [3, 2]         Overlapping       5    5      1.400      2.400         0         4
+ 5 [3, 2]         Separated         5    5      2.000      0.000         0         0
+ 5 [4, 1]         Adjacent         10    4      1.800      2.000         2         2
+ 5 [4, 1]         Nested           25    4      1.280      1.920         0         4
+ 5 [4, 1]         Overlapping       5    4      1.200      1.600         0         4
+ 5 [4, 1]         Separated         5    4      2.000      0.000         0         0
+ 5 [5]            Adjacent         10    1      1.000      0.000         0         0
+ 5 [5]            Nested           25    1      1.000      0.000         0         0
+ 5 [5]            Overlapping       5    1      1.000      0.000         0         0
+ 5 [5]            Separated         5    1      1.000      0.000         0         0
+
+======================================================================
+ARRANGEMENT-DEPENDENT IRREPS (dim > 1)
+======================================================================
+
+n=4, lambda=[2, 1, 1], dim=3
+  Separated     count=  1  mean(comm_rank)= 0.000  mean(joint_fix)= 0.000  comm_rank range=[0,0]
+  Adjacent      count=  4  mean(comm_rank)= 2.000  mean(joint_fix)= 0.000  comm_rank range=[2,2]
+  Nested        count=  9  mean(comm_rank)= 1.778  mean(joint_fix)= 0.000  comm_rank range=[0,2]
+  Overlapping   count=  1  mean(comm_rank)= 0.000  mean(joint_fix)= 0.000  comm_rank range=[0,0]
+
+n=4, lambda=[2, 2], dim=2
+  Separated     count=  1  mean(comm_rank)= 0.000  mean(joint_fix)= 1.000  comm_rank range=[0,0]
+  Adjacent      count=  4  mean(comm_rank)= 2.000  mean(joint_fix)= 0.000  comm_rank range=[2,2]
+  Nested        count=  9  mean(comm_rank)= 0.889  mean(joint_fix)= 0.556  comm_rank range=[0,2]
+  Overlapping   count=  1  mean(comm_rank)= 0.000  mean(joint_fix)= 1.000  comm_rank range=[0,0]
+
+n=4, lambda=[3, 1], dim=3
+  Separated     count=  1  mean(comm_rank)= 0.000  mean(joint_fix)= 1.000  comm_rank range=[0,0]
+  Adjacent      count=  4  mean(comm_rank)= 2.000  mean(joint_fix)= 1.000  comm_rank range=[2,2]
+  Nested        count=  9  mean(comm_rank)= 1.778  mean(joint_fix)= 0.556  comm_rank range=[0,2]
+  Overlapping   count=  1  mean(comm_rank)= 0.000  mean(joint_fix)= 1.000  comm_rank range=[0,0]
+
+n=5, lambda=[2, 1, 1, 1], dim=4
+  Separated     count=  5  mean(comm_rank)= 0.000  mean(joint_fix)= 0.000  comm_rank range=[0,0]
+  Adjacent      count= 10  mean(comm_rank)= 2.000  mean(joint_fix)= 0.000  comm_rank range=[2,2]
+  Nested        count= 25  mean(comm_rank)= 1.920  mean(joint_fix)= 0.000  comm_rank range=[0,4]
+  Overlapping   count=  5  mean(comm_rank)= 1.600  mean(joint_fix)= 0.000  comm_rank range=[0,4]
+
+n=5, lambda=[2, 2, 1], dim=5
+  Separated     count=  5  mean(comm_rank)= 0.000  mean(joint_fix)= 1.000  comm_rank range=[0,0]
+  Adjacent      count= 10  mean(comm_rank)= 4.000  mean(joint_fix)= 0.000  comm_rank range=[4,4]
+  Nested        count= 25  mean(comm_rank)= 2.720  mean(joint_fix)= 0.600  comm_rank range=[0,4]
+  Overlapping   count=  5  mean(comm_rank)= 2.400  mean(joint_fix)= 0.600  comm_rank range=[0,4]
+
+n=5, lambda=[3, 1, 1], dim=6
+  Separated     count=  5  mean(comm_rank)= 0.000  mean(joint_fix)= 1.000  comm_rank range=[0,0]
+  Adjacent      count= 10  mean(comm_rank)= 4.000  mean(joint_fix)= 0.800  comm_rank range=[4,4]
+  Nested        count= 25  mean(comm_rank)= 3.520  mean(joint_fix)= 0.360  comm_rank range=[0,4]
+  Overlapping   count=  5  mean(comm_rank)= 2.400  mean(joint_fix)= 0.400  comm_rank range=[0,4]
+
+n=5, lambda=[3, 2], dim=5
+  Separated     count=  5  mean(comm_rank)= 0.000  mean(joint_fix)= 2.000  comm_rank range=[0,0]
+  Adjacent      count= 10  mean(comm_rank)= 4.000  mean(joint_fix)= 1.000  comm_rank range=[4,4]
+  Nested        count= 25  mean(comm_rank)= 2.720  mean(joint_fix)= 1.120  comm_rank range=[0,4]
+  Overlapping   count=  5  mean(comm_rank)= 2.400  mean(joint_fix)= 1.400  comm_rank range=[0,4]
+
+n=5, lambda=[4, 1], dim=4
+  Separated     count=  5  mean(comm_rank)= 0.000  mean(joint_fix)= 2.000  comm_rank range=[0,0]
+  Adjacent      count= 10  mean(comm_rank)= 2.000  mean(joint_fix)= 1.800  comm_rank range=[2,2]
+  Nested        count= 25  mean(comm_rank)= 1.920  mean(joint_fix)= 1.280  comm_rank range=[0,4]
+  Overlapping   count=  5  mean(comm_rank)= 1.600  mean(joint_fix)= 1.200  comm_rank range=[0,4]
+
+======================================================================
+STRIKING ORDERINGS (mean commutator rank varies across arrangement types)
+======================================================================
+  n=5 lambda=[2, 2, 1] dim=5  spread=4.000  Separated(0.00) < Overlapping(2.40) < Nested(2.72) < Adjacent(4.00)
+  n=5 lambda=[3, 1, 1] dim=6  spread=4.000  Separated(0.00) < Overlapping(2.40) < Nested(3.52) < Adjacent(4.00)
+  n=5 lambda=[3, 2] dim=5  spread=4.000  Separated(0.00) < Overlapping(2.40) < Nested(2.72) < Adjacent(4.00)
+  n=4 lambda=[2, 1, 1] dim=3  spread=2.000  Separated(0.00) < Overlapping(0.00) < Nested(1.78) < Adjacent(2.00)
+  n=4 lambda=[2, 2] dim=2  spread=2.000  Separated(0.00) < Overlapping(0.00) < Nested(0.89) < Adjacent(2.00)
+  n=4 lambda=[3, 1] dim=3  spread=2.000  Separated(0.00) < Overlapping(0.00) < Nested(1.78) < Adjacent(2.00)
+  n=5 lambda=[2, 1, 1, 1] dim=4  spread=2.000  Separated(0.00) < Overlapping(1.60) < Nested(1.92) < Adjacent(2.00)
+  n=5 lambda=[4, 1] dim=4  spread=2.000  Separated(0.00) < Overlapping(1.60) < Nested(1.92) < Adjacent(2.00)
+
+CSV written to: /home/clio/projects/signed-laxator-work/cactus_rank_data.csv

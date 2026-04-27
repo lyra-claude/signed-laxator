@@ -17,6 +17,18 @@ Second, why does the experimental sign of the arrangement effect
 \emph{reverse} across task domains?
 (Section~\ref{sec:domain-dependent-activation}.)
 
+A guiding intuition throughout this section is the duality between
+\emph{sheaves} and \emph{copresheaves} on communication graphs.
+Sheaves enforce consistency: a sheaf assigns data to nodes subject to
+agreement conditions on overlaps, formalizing the coordination channel
+in multi-agent systems.  Copresheaves, by contrast, enable directed
+information flow \emph{without} consistency constraints, formalizing
+the exploration channel~\cite{hajij2025copresheaf}.
+The signed laxator, as we shall see, can be understood as a natural
+transformation mediating between these two perspectives: its sign
+determines whether the system is driven toward sheaf-like consensus or
+copresheaf-like divergence.
+
 %% ================================================================
 \subsection{Per-Irrep Rank Ordering}
 \label{sec:per-irrep-rank}
@@ -155,6 +167,18 @@ algebraic (via the cactus group) and geometric (via interval nesting),
 and this invariant robustly predicts the strength of non-abelian
 interference across all representation channels.
 
+In the language of sheaf--copresheaf duality, the universality of
+the ordering across irreps reflects a structural fact: the
+arrangement type controls not only the \emph{degree} of
+non-commutativity but also the balance between consistency
+enforcement (the sheaf channel) and unconstrained information flow
+(the copresheaf channel).  Separated generators, which commute
+exactly, preserve the sheaf's consistency conditions; Adjacent
+generators, which are maximally non-commuting, break these conditions
+maximally and drive the system toward the copresheaf regime.  The
+signed laxator~$\phi_G$ sits at the interface, with its sign encoding
+which regime dominates for a given topology and task.
+
 %% ================================================================
 \subsection{Domain-Dependent Irrep Activation}
 \label{sec:domain-dependent-activation}
@@ -251,7 +275,18 @@ diversity effect.
 \subsubsection{The sign-flip mechanism.}
 
 The key insight is that~$f$ need not be monotone in the same direction
-for all domains.  There are two competing effects of non-commutativity
+for all domains.  Hajij et al.~\cite{hajij2025copresheaf} identify an
+analogous phenomenon in graph neural networks: oversmoothing --- the
+collapse of node representations after many message-passing layers ---
+is the neural-network manifestation of \emph{over-consensus} in
+multi-agent systems.  Their copresheaf networks resolve this by
+relaxing the consistency constraints that sheaf-based architectures
+impose.  In our framework, the signed laxator achieves the same
+resolution algebraically: when~$\phi_G > 0$, the lax condition relaxes
+sheaf consistency toward copresheaf-like diversity generation; when
+$\phi_G < 0$, it tightens consistency toward consensus.
+
+There are two competing effects of non-commutativity
 on diversity:
 
 \begin{enumerate}
@@ -414,6 +449,27 @@ be understood as marking the boundary between the commutative regime
 regime (where the full laxator is required to manage interference).
 \end{remark}
 
+\begin{remark}[Copresheaf duality and the laxator program]
+\label{rem:copresheaf-duality}
+Hajij et al.~\cite{hajij2025copresheaf} establish a formal duality
+between sheaf neural networks (which enforce consistency via
+restriction maps) and copresheaf neural networks (which propagate
+information via extension maps without consistency constraints).
+Their central finding --- that copresheaf architectures avoid the
+oversmoothing pathology of deep sheaf networks --- provides a
+structural parallel to the signed-laxator framework.  In our
+setting, the laxator~$\phi_G$ can be reinterpreted as a bridge
+between the sheaf and copresheaf perspectives on the communication
+graph: the lax condition $\phi_{H} \circ F(f) \neq G(f) \circ
+\phi_{G}$ is precisely the failure of strict sheaf consistency, and
+the \emph{sign} of the laxator cell determines whether this failure
+drives the system toward copresheaf-like exploration ($\phi_G > 0$)
+or deeper sheaf-like consensus ($\phi_G < 0$).  Formalizing~$\phi_G$
+as a natural transformation in a category that simultaneously carries
+sheaf and copresheaf structure is an important direction for future
+work; see Section~\ref{sec:copresheaf-future}.
+\end{remark}
+
 \subsubsection{Why the saturation formula fails.}
 
 This framework explains the failure of the universal saturation
@@ -461,6 +517,28 @@ arrangement ordering on each domain.  Step~(a) requires
 Fourier analysis on~$S_n$ of the population diversity vectors, which
 is computationally feasible for the group sizes in our experiments
 ($n = 4, 5, 8$).
+
+\subsubsection{Toward a copresheaf formalization.}
+\label{sec:copresheaf-future}
+
+The sheaf--copresheaf duality of Hajij et
+al.~\cite{hajij2025copresheaf} suggests a natural next step for the
+signed-laxator program: formalize~$\phi_G$ as a morphism in a
+category that carries both sheaf and copresheaf structure
+simultaneously.  On a communication graph~$G$, a \emph{sheaf}
+$\mathcal{F}$ assigns vector spaces to nodes with restriction maps on
+edges enforcing consistency, while a \emph{copresheaf}
+$\mathcal{G}$ assigns vector spaces with extension maps enabling
+directed flow.  The laxator~$\phi_G$ would then be a natural
+transformation $\mathcal{F} \Rightarrow \mathcal{G}$ whose
+components measure the local failure of consistency --- positive
+components opening the sheaf toward copresheaf-like exploration,
+negative components tightening it toward consensus.  This
+formalization would unify the three sign-flip observations of
+Section~3 within a single categorical framework and connect the
+evolutionary-dynamics perspective to the growing literature on
+sheaf-theoretic machine
+learning~\cite{hajij2025copresheaf,hernandez2026identity,sloboda2026composition}.
 
 % ================================================================
 % NOTE FOR CLIO:

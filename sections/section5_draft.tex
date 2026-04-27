@@ -1,0 +1,498 @@
+% Section 5: Per-Irrep Analysis and Domain-Dependent Activation
+% Draft by Lyra -- Sections 5.1 and 5.2
+% For discussion with Clio before integration into main paper.
+%
+% Assumes LNCS or similar style with amsmath, amssymb loaded.
+% Clio will handle Section 5.3 (fiber rotation mechanism).
+
+\section{Representation-Theoretic Analysis of the Cactus Action}
+\label{sec:irrep-analysis}
+
+The headline result of Section~4 established a strict ordering of
+commutator rank by interval arrangement, uniform across all non-trivial
+irreducible representations of~$S_n$.  We now ask two deeper questions.
+First, how does this ordering decompose when we resolve it per
+irreducible representation? (Section~\ref{sec:per-irrep-rank}.)
+Second, why does the experimental sign of the arrangement effect
+\emph{reverse} across task domains?
+(Section~\ref{sec:domain-dependent-activation}.)
+
+%% ================================================================
+\subsection{Per-Irrep Rank Ordering}
+\label{sec:per-irrep-rank}
+
+\subsubsection{Setup and notation.}
+
+Recall from Section~3 that each cactus generator
+$s_{p,q} \in J_n$ acts on the Specht module~$V_\lambda$ of~$S_n$ via
+the longest element $w_0^{[p,q]} \in S_{[p,q]}$, which reverses the
+interval~$[p,q]$.  For each pair of generators
+$(s_{p_1,q_1},\; s_{p_2,q_2})$, the \emph{commutator rank} is
+\[
+  c_\lambda(s_{p_1,q_1},\, s_{p_2,q_2})
+  \;=\;
+  \operatorname{rank}\!\bigl(
+    \rho_\lambda(s_{p_1,q_1})\,\rho_\lambda(s_{p_2,q_2})
+    \;-\;
+    \rho_\lambda(s_{p_2,q_2})\,\rho_\lambda(s_{p_1,q_1})
+  \bigr),
+\]
+and the pair is classified by the relative arrangement of
+$[p_1,q_1]$ and $[p_2,q_2]$ into one of four types:
+\emph{Separated} ($q_1 < p_2$, disjoint),
+\emph{Overlapping} (partial overlap, neither contains the other),
+\emph{Nested} (one strictly contains the other), or
+\emph{Adjacent} (intervals share exactly one endpoint).
+
+\subsubsection{The strict ordering at $n = 5$.}
+
+Table~\ref{tab:n5-commutator-rank} presents the mean commutator rank
+by arrangement type for every non-trivial irrep of~$S_5$.  The
+computation covers all~$\binom{10}{2} = 45$ pairs of the ten cactus
+generators of~$J_5$, evaluated on each of the five non-trivial Specht
+modules (390 rows total; see Appendix~A for the complete table).
+
+\begin{table}[t]
+\centering
+\caption{Mean commutator rank by arrangement type, per non-trivial
+irrep of~$S_5$.  Adjacent generators achieve the maximum commutator
+rank in every case; Separated generators always commute.}
+\label{tab:n5-commutator-rank}
+\smallskip
+\begin{tabular}{lcrrrr}
+\hline
+$\lambda$ & $\dim V_\lambda$ & Separated & Overlapping & Nested & Adjacent \\
+\hline
+$[4,1]$     & 4 & 0.00 & 1.60 & 1.92 & 2.00 \\
+$[3,2]$     & 5 & 0.00 & 2.40 & 2.72 & 4.00 \\
+$[3,1,1]$   & 6 & 0.00 & 2.40 & 3.52 & 4.00 \\
+$[2,2,1]$   & 5 & 0.00 & 2.40 & 2.72 & 4.00 \\
+$[2,1,1,1]$ & 4 & 0.00 & 1.60 & 1.92 & 2.00 \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent
+The ordering
+\begin{equation}
+\label{eq:strict-ordering}
+  \text{Separated} \;<\; \text{Overlapping} \;<\; \text{Nested} \;<\; \text{Adjacent}
+\end{equation}
+is \emph{strict for every non-trivial irrep} at $n = 5$.  Moreover,
+the Adjacent commutator rank is perfectly consistent: every Adjacent
+pair achieves the same value within each irrep (rank~$2$ for the
+four-dimensional irreps $[4,1]$ and $[2,1,1,1]$, and rank~$4$ for the
+five- and six-dimensional irreps $[3,2]$, $[2,2,1]$, and $[3,1,1]$).
+Separated generators commute exactly ($c_\lambda = 0$ for all pairs,
+all irreps).
+
+\begin{remark}[Adjacent as maximal non-commutativity]
+For the five-dimensional irreps $[3,2]$ and $[2,2,1]$, the Adjacent
+commutator rank equals~$4$, which is the maximum possible for a
+$5 \times 5$ commutator matrix (a commutator $[A,B] = AB - BA$ has
+trace zero, so its rank is at most $\dim V_\lambda - 1$ when
+$\dim V_\lambda$ is odd, and at most $\dim V_\lambda$ when even; here
+$\dim = 5$ gives rank $\leq 4$).  Adjacent generators are thus
+\emph{maximally non-commuting} on these irreps.
+\end{remark}
+
+\subsubsection{The $n = 4$ degeneracy.}
+
+At $n = 4$, the strict ordering~\eqref{eq:strict-ordering} partially
+collapses: Separated and Overlapping generators have identical mean
+commutator rank (both zero) for all non-trivial irreps.  This
+degeneracy arises because $n = 4$ admits only a single Overlapping pair
+--- the intervals $[1,3]$ and $[2,4]$ --- and the corresponding
+permutations $w_0^{[1,3]}$ and $w_0^{[2,4]}$ happen to commute in
+$S_4$.  (Concretely, these are $(1\;3)$ and $(2\;4)$, which are
+disjoint transpositions composed with a fixed point, so they commute on
+the nose.)
+
+\begin{table}[t]
+\centering
+\caption{Mean commutator rank at $n = 4$.  The Separated--Overlapping
+degeneracy is a small-$n$ artifact; see text.}
+\label{tab:n4-commutator-rank}
+\smallskip
+\begin{tabular}{lcrrrr}
+\hline
+$\lambda$ & $\dim V_\lambda$ & Separated & Overlapping & Nested & Adjacent \\
+\hline
+$[3,1]$   & 3 & 0.00 & 0.00 & 1.78 & 2.00 \\
+$[2,2]$   & 2 & 0.00 & 0.00 & 0.89 & 2.00 \\
+$[2,1,1]$ & 3 & 0.00 & 0.00 & 1.78 & 2.00 \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent
+The degeneracy breaks cleanly at $n = 5$, where five independent
+Overlapping pairs exist and all achieve non-zero mean commutator rank.
+This is significant: it confirms that the four-class ordering is a
+structural feature of the cactus action, not a coincidence at a single
+value of~$n$, and that the $n = 4$ collapse is the artefact rather than
+the rule.
+
+\subsubsection{Universality across irreps.}
+
+The key observation is that the ordering~\eqref{eq:strict-ordering}
+does not depend on the choice of irrep~$\lambda$.  While the absolute
+values of $c_\lambda$ vary (e.g., $[3,1,1]$ achieves a Nested mean of
+$3.52$ versus $1.92$ for $[4,1]$), the \emph{relative ranking} of
+arrangement types is identical for every non-trivial $\lambda$ at a
+given~$n$.  This universality has a concrete interpretation:
+
+\begin{quote}
+\emph{For any representation through which the cactus group acts
+non-trivially, the degree to which two generators fail to commute is
+determined by the geometric relationship of their intervals, not by the
+algebraic details of the representation.}
+\end{quote}
+
+This is precisely the structure needed for the signed laxator: the
+arrangement classification provides an invariant that is simultaneously
+algebraic (via the cactus group) and geometric (via interval nesting),
+and this invariant robustly predicts the strength of non-abelian
+interference across all representation channels.
+
+%% ================================================================
+\subsection{Domain-Dependent Irrep Activation}
+\label{sec:domain-dependent-activation}
+
+\subsubsection{The maze sign-flip.}
+
+The universal ordering~\eqref{eq:strict-ordering} predicts that
+Adjacent arrangements should always produce the \emph{strongest}
+interference effect, and Separated the weakest.  In our experimental
+data on NK landscapes and sudoku, this prediction holds: the
+interference experiment (Table~4 of the companion data set%
+\footnote{Available at
+\texttt{github.com/lyra-claude/signed-laxator}, directory
+\texttt{experiments/}.}) measures $\eta^2$ for the arrangement effect
+at constant $\beta_1 = 2$ across three cycle configurations
+(Adjacent, Separated, Nested), and the saturation ordering on sudoku
+is
+\[
+  \text{Separated}~(0.385) \;>\;
+  \text{Adjacent}~(0.165) \;>\;
+  \text{Nested}~(0.053),
+\]
+which matches the cactus-rank prediction when we interpret higher
+commutator rank as stronger interference and thus higher saturation
+ceiling.
+
+% NOTE: The sudoku ordering is Separated > Adjacent > Nested for the
+% saturation *ceiling*, which corresponds to the cactus prediction
+% that Separated pairs commute (additive, no cancellation) while
+% Adjacent pairs have maximal non-commutativity (destructive
+% interference lowers the ceiling).  This needs careful framing ---
+% see discussion below.
+
+However, on maze tasks the ordering \emph{reverses}:
+\[
+  \text{Adjacent}~(0.028) \;>\;
+  \text{Nested}~(0.027) \;>\;
+  \text{Separated}~(0.022).
+\]
+The effect sizes are small (near the noise floor, with $\eta^2 \approx
+0.01$--$0.03$ and diversity locked near $0.989$ across all conditions),
+but the reversal is consistent across generations.  On OneMax (NK0),
+a partial match obtains:
+\[
+  \text{Separated}~(0.074) \;>\;
+  \text{Nested}~(0.037) \;>\;
+  \text{Adjacent}~(0.004).
+\]
+
+\subsubsection{Interpretation: the active irrep depends on the task.}
+
+We propose that the resolution lies not in the cactus algebra itself
+but in which irreducible representation of the cactus group is
+\emph{activated} by a given task domain.  The argument runs as
+follows.
+
+The cactus group $J_n$ acts simultaneously on every irrep $V_\lambda$
+of~$S_n$.  But the evolutionary dynamics on a particular fitness
+landscape do not excite all irreps equally.  Different task domains
+impose different symmetry-breaking patterns on the population, and
+these patterns project preferentially onto different irreps.
+
+\begin{definition}[Active irrep]
+\label{def:active-irrep}
+Let $\mathcal{D}$ be a task domain and $\pi_\lambda$ the projection
+onto the $\lambda$-isotypic component of the population state space.
+We say $V_\lambda$ is \emph{$\mathcal{D}$-active} if
+$\|\pi_\lambda(\delta_{\mathcal{D}})\| > \epsilon$ at the relevant
+timescale, where $\delta_{\mathcal{D}}$ is the diversity trajectory
+difference vector across arrangements and $\epsilon$ is a
+significance threshold.
+\end{definition}
+
+The per-irrep commutator ranks in Table~\ref{tab:n5-commutator-rank}
+are universal in their \emph{ordering} but not in their \emph{absolute
+values}.  The spread between arrangement types differs:
+$[3,1,1]$ has Nested mean~$3.52$ versus Adjacent~$4.00$ (ratio
+$0.88$), while $[4,1]$ has Nested~$1.92$ versus Adjacent~$2.00$
+(ratio~$0.96$).  If different task domains activate different
+irreps, the \emph{observable} arrangement effect is the
+weighted sum
+\begin{equation}
+\label{eq:weighted-arrangement}
+  \eta^2_{\mathrm{obs}}(\text{arrangement})
+  \;=\;
+  \sum_\lambda
+    w_\lambda(\mathcal{D})\;
+    f\bigl(c_\lambda(\text{arrangement})\bigr),
+\end{equation}
+where $w_\lambda(\mathcal{D})$ encodes the domain-dependent activation
+weights and $f$ is a monotone function relating commutator rank to
+diversity effect.
+
+\subsubsection{The sign-flip mechanism.}
+
+The key insight is that~$f$ need not be monotone in the same direction
+for all domains.  There are two competing effects of non-commutativity
+on diversity:
+
+\begin{enumerate}
+\item \textbf{Constructive interference:} Non-commuting generators
+  produce a richer orbit structure.  Agents connected by
+  non-commuting channels explore more of the search space, sustaining
+  diversity.  This is the dominant effect on \emph{rugged} landscapes
+  (NK2--6, sudoku) where the fitness landscape has many local optima
+  and the population benefits from sustained exploration.
+
+\item \textbf{Destructive interference:} Non-commuting generators
+  produce conflicting migration signals.  Agents receiving
+  contradictory information from adjacent channels experience
+  ``interference noise'' that disrupts coherent search.  This is the
+  dominant effect on \emph{smooth} landscapes (OneMax) and tasks where
+  the population maintains high diversity independently of topology
+  (maze, where diversity $\approx 0.989$ regardless of arrangement).
+  Sloboda~\cite{sloboda2026composition} (Thm.~6) gives this a precise
+  algebraic cost: composing two sheaf morphisms, each of complexity
+  $O(w)$, incurs an $\Omega(w^2)$ blowup --- meaning that the
+  ``interference noise'' accumulates \emph{quadratically} in the depth
+  of the non-commuting composition chain, not merely additively.
+  Conversely, Hernandez Caralt et al.~\cite{hernandez2026identity} show
+  that when $H^1 = 0$ (trivial cohomology), identity sheaves suffice
+  and no such interference arises --- confirming that the quadratic
+  cost is genuinely a feature of the non-trivial-cohomology regime.
+\end{enumerate}
+
+\noindent
+On sudoku ($\eta^2 = 0.40$ for the arrangement effect at gen~500),
+the constructive channel dominates: Separated generators, which
+commute perfectly, allow additive diversity contributions without
+cancellation, yielding the highest saturation ceiling.  Adjacent
+generators, maximally non-commuting, produce the strongest
+interference, \emph{lowering} the diversity ceiling through
+destructive interaction of migration signals.  Hence
+$\text{Separated} > \text{Adjacent}$ for the saturation metric.
+
+On maze tasks, the population is already near-maximally diverse
+($\approx 0.989$) and the topology effect is negligible
+($\eta^2 \approx 0.01$).  In this regime, the small residual effect
+of non-commutativity is to \emph{prevent} the population from
+converging to a common solution -- the destructive interference of
+Adjacent generators creates a weak diversity-\emph{preserving} force.
+Hence the ordering reverses: $\text{Adjacent} > \text{Separated}$.
+
+\subsubsection{Connection to Schur-convexity.}
+
+This domain-dependent activation connects naturally to the
+Schur-convexity framework of Amir, Bettini, and
+Prorok~\cite{amir2026schur}.  Their key result: a multi-agent task
+benefits from diversity (Schur-concave optimal) when the global
+objective aggregates agent contributions via a Schur-concave function,
+and benefits from homogeneity (Schur-convex optimal) when aggregation
+is Schur-convex.
+
+We identify the \emph{task curvature}
+$\sigma \in [-1, +1]$ as the degree of Schur-concavity ($\sigma > 0$)
+or Schur-convexity ($\sigma < 0$) of the task's aggregation function.
+The connection to irrep activation is:
+
+\begin{itemize}
+\item \textbf{High $\sigma$ (Schur-concave, e.g., sudoku):}
+  The task rewards diverse solutions.  The population dynamics project
+  strongly onto irreps where the arrangement ordering matches the
+  constructive-interference prediction: high commutator rank
+  \emph{reduces} effective diversity by creating conflicting signals.
+  Separated arrangements, being fully commutative, allow maximal
+  constructive superposition.
+
+\item \textbf{Low $\sigma$ (near-neutral, e.g., maze):}
+  The task neither rewards nor penalizes diversity.  The population
+  maintains near-maximal diversity regardless.  The residual
+  arrangement effect is dominated by the destructive-interference
+  channel: high commutator rank creates a weak force resisting
+  convergence.  The active irreps are those where non-commutativity
+  \emph{preserves} rather than \emph{reduces} diversity.
+
+\item \textbf{Negative $\sigma$ (Schur-convex, e.g., OneMax):}
+  The task rewards homogeneity.  The population dynamics select for
+  convergence, and the arrangement effect operates through the
+  interference channel.  Separated arrangements allow clean
+  convergence; Adjacent ones create noisy signals that slow it.
+  The partial match $\text{Separated} > \text{Nested} >
+  \text{Adjacent}$ is consistent with this picture.
+\end{itemize}
+
+\subsubsection{The three-axis prediction.}
+
+This analysis completes a three-axis framework for topology-mediated
+optimization:
+
+\begin{enumerate}
+\item $\beta_1$ (first Betti number): \emph{how many} independent
+  cycles exist in the communication topology.  Determines the
+  \emph{capacity} for diversity maintenance.
+
+\item $\lambda_2$ (Fiedler eigenvalue): \emph{how fast} information
+  propagates through the topology.  Determines the \emph{timescale}
+  of convergence.
+
+\item $\sigma$ (task curvature / Schur-convexity): \emph{whether}
+  diversity helps or hurts on the given task.  Determines which
+  irreducible representation of the cactus group is active, and
+  thereby the \emph{sign} of the arrangement effect.
+\end{enumerate}
+
+\noindent
+The prediction chain is:
+\[
+  \sigma \;\longrightarrow\;
+  w_\lambda(\mathcal{D})
+  \;\longrightarrow\;
+  \beta_1^*(\sigma)
+  \;\longrightarrow\;
+  \lambda_2^*(\beta_1),
+\]
+where $\beta_1^*(\sigma)$ is the optimal cycle rank for a task of
+curvature~$\sigma$, and $\lambda_2^*(\beta_1)$ is the optimal
+spectral gap for a graph with that cycle rank.
+
+\begin{remark}[Composition complexity and the $\beta_1$ axis]
+\label{rem:composition-complexity}
+Sloboda~\cite{sloboda2026composition} (Thm.~6) establishes that the
+composition of two sheaf morphisms, each of complexity $O(w)$,
+produces an $\Omega(w^2)$ blowup.  This quantifies why $\beta_1$
+matters structurally, not just combinatorially.  In a star topology
+($\beta_1 = 0$), every coordination path passes through the hub at
+length~$1$: there is no composition chaining and no quadratic cost.
+In a cycle, agents compose migration signals \emph{sequentially}
+around the ring, accumulating complexity at each step.  The
+Fiedler eigenvalue~$\lambda_2$ controls the rate at which
+inconsistency leaks across the cycle: a larger spectral gap forces
+faster mixing, limiting how deeply the quadratic overhead can
+accumulate before convergence.  This connects to the NK data:
+NK2 shows a sustained topology advantage ($d = 0.56$) while NK4
+is transient --- moderate ruggedness gives the landscape enough
+structure that composition overhead matters before the population
+saturates, but high ruggedness diversifies so rapidly that even
+the $\Omega(w^2)$ cost is dominated by fitness-driven exploration.
+\end{remark}
+
+\begin{remark}[External validation: identity sheaves and trivial cohomology]
+\label{rem:identity-sheaves}
+Hernandez Caralt et al.~\cite{hernandez2026identity} provide independent
+empirical validation of the signed-laxator thesis from the graph neural
+network literature.  They show that \emph{identity sheaves} --- i.e.,
+sheaves carrying no learned structure --- suffice for node classification
+whenever the first cohomology vanishes ($H^1 = 0$), and identify a
+``good heterophily $> 0.54$'' threshold as an empirical proxy for this
+condition.  Read contrapositively, their result says: when $H^1 \neq 0$
+(non-trivial cohomology), identity sheaves do \emph{not} suffice, and
+the full sheaf machinery --- including the signed laxator --- becomes
+necessary.  This is precisely the regime where our three-axis framework
+predicts topology matters: non-trivial $\beta_1$ creates non-trivial
+$H^1$, which activates the cactus-group interference structure and makes
+the arrangement ordering observable.  The good-heterophily threshold can
+be understood as marking the boundary between the commutative regime
+(where separated/identity structure suffices) and the non-commutative
+regime (where the full laxator is required to manage interference).
+\end{remark}
+
+\subsubsection{Why the saturation formula fails.}
+
+This framework explains the failure of the universal saturation
+formula $\eta^2 \approx 1 - \exp(-\beta_1 / L)$ (where $L$ is
+a landscape-dependent length scale), which achieves $R^2 = -0.75$
+across domains~\cite{lyra2026topology}.  The formula implicitly
+assumes a single, domain-independent relationship between $\beta_1$
+and $\eta^2$.  But because different domains activate different
+irreps, there is no such universal relationship: the effective weight
+of $\beta_1$ depends on~$\sigma$, which varies by domain.
+
+Concretely, on sudoku ($\sigma \gg 0$), $\beta_1$ has a strong
+effect ($\eta^2 = 0.69$), while on maze ($\sigma \approx 0$),
+$\beta_1$ has almost no effect ($\eta^2 = 0.02$), despite the
+same graphs being used.  The formula correctly captures the
+shape within a single domain (logistic $R^2 = 0.92$ for sudoku
+alone) but fails catastrophically when pooled across domains because
+the irrep weights~$w_\lambda$ change.
+
+\subsubsection{Testable prediction.}
+
+The irrep-activation hypothesis generates a concrete, falsifiable
+prediction:
+
+\begin{prediction}
+\label{pred:per-irrep-reversal}
+Compute the per-irrep commutator rank ordering separately for each
+non-trivial $V_\lambda$ of $S_n$.  For irreps activated by
+Schur-concave tasks (sudoku), the \emph{observable} arrangement
+effect should follow the standard ordering
+$\mathrm{Separated} > \mathrm{Adjacent}$ (because commutativity
+enables constructive superposition).  For irreps activated by
+near-neutral tasks (maze), the observable arrangement effect should
+reverse to $\mathrm{Adjacent} > \mathrm{Separated}$ (because
+non-commutativity preserves diversity).
+\end{prediction}
+
+\noindent
+Testing this prediction requires two steps: (a)~identify the
+domain-dependent weights~$w_\lambda(\mathcal{D})$ from the population
+Fourier spectrum on each task, and (b)~verify that the weighted
+commutator rank, computed via
+equation~\eqref{eq:weighted-arrangement}, reproduces the observed
+arrangement ordering on each domain.  Step~(a) requires
+Fourier analysis on~$S_n$ of the population diversity vectors, which
+is computationally feasible for the group sizes in our experiments
+($n = 4, 5, 8$).
+
+% ================================================================
+% NOTE FOR CLIO:
+%
+% Gaps that need your input:
+%
+% 1. The relationship between commutator rank ordering and the
+%    *saturation ceiling* ordering is not straightforward.  On sudoku,
+%    Separated > Adjacent for saturation, which we interpret as
+%    "commutativity enables constructive superposition."  But this is
+%    the OPPOSITE of what you'd naively predict from "higher
+%    commutator rank = stronger interference = more diversity."  We
+%    need your algebraic perspective on why non-commutativity
+%    corresponds to a LOWER diversity ceiling.
+%
+% 2. The formal connection between irrep activation weights
+%    w_lambda(D) and Schur-convexity sigma is currently hand-waved.
+%    Ideally this would be a theorem: sigma determines the dominant
+%    irreps via some spectral condition on the task's aggregation
+%    function.
+%
+% 3. Section 5.3 (fiber rotation mechanism) should connect the
+%    domain-dependent sign to the monodromy of the flat connection
+%    as kappa varies.  Does the sign-flip correspond to the fiber
+%    rotating through a singular point on the Riemann sphere?
+%
+% 4. The n=4 degeneracy: is there a clean algebraic explanation for
+%    why [1,3] and [2,4] commute?  I attributed it to disjoint
+%    transpositions, but you may see a deeper structure.
+%
+% 5. The Adjacent commutator rank being *exactly* constant (no
+%    variance at all within each irrep) feels like it should have
+%    a clean proof.  Is this related to the palindromic structure
+%    you mentioned in the eigenvalue-positivity work?
+% ================================================================

@@ -318,6 +318,33 @@ on diversity:
   specification morphism can introduce relative obstructions
   $H^1_{\mathrm{rel}}(\mathcal{F}, W) \neq 0$, separating intrinsic
   topology obstructions from task-grounding obstructions.
+  Hanks et al.~\cite{hanks2025relative}, implementing the program of
+  Schmid~\cite{schmid2025prospectus}, give this relative approach
+  empirical teeth: they show that $H^0_{\mathrm{rel}} = 0$ serves as a
+  \emph{stability condition} for multi-agent systems, providing a
+  computable certificate that no coordination failure can arise from the
+  specification alone.  This complements Yokoyama's $H^1_{\mathrm{rel}}$
+  obstruction: the relative cohomology ladder
+  $H^0_{\mathrm{rel}} \to H^1 \to H^1_{\mathrm{rel}}$
+  captures a progression from global stability to local inconsistency to
+  task-grounded obstruction.
+
+  At the next cohomological degree, Ghrist and
+  Riess~\cite{ghrist2026cup} show that cup products in~$H^2$ measure
+  \emph{interference between independent $H^1$ obstructions} --- that
+  is, $H^2$ detects when two individually resolvable inconsistencies
+  become jointly irresolvable.  They establish a paradox hierarchy
+  $H^0$ (ambiguity) $\to$ $H^1$ (inconsistency) $\to$ $H^2$
+  (inaccessibility), with a discrete Stokes theorem connecting
+  boundary inconsistency to interior obstruction.  For the
+  signed-laxator framework, this hierarchy is directly relevant:
+  the constructive/destructive interference dichotomy of this section
+  operates at the $H^1$ level (inconsistency of migration signals),
+  but the \emph{interaction} between independent interference channels
+  --- precisely what non-commutativity of Adjacent generators
+  produces --- is an $H^2$ phenomenon.  The cup product structure
+  may thus provide the algebraic foundation for the quadratic cost
+  of Sloboda's Theorem~6.
 \end{enumerate}
 
 \noindent
@@ -469,10 +496,10 @@ graph: the lax condition $\phi_{H} \circ F(f) \neq G(f) \circ
 \phi_{G}$ is precisely the failure of strict sheaf consistency, and
 the \emph{sign} of the laxator cell determines whether this failure
 drives the system toward copresheaf-like exploration ($\phi_G > 0$)
-or deeper sheaf-like consensus ($\phi_G < 0$).  Formalizing~$\phi_G$
-as a natural transformation in a category that simultaneously carries
-sheaf and copresheaf structure is an important direction for future
-work; see Section~\ref{sec:copresheaf-future}.
+or deeper sheaf-like consensus ($\phi_G < 0$).  The common receiving category construction of
+Section~\ref{sec:copresheaf-future} (C.~Vega, private communication)
+provides a concrete categorical foundation for this bridge, realizing
+$\phi_G$ as an involution on the ambient section space.
 \end{remark}
 
 \subsubsection{Why the saturation formula fails.}
@@ -523,59 +550,142 @@ Fourier analysis on~$S_n$ of the population diversity vectors, which
 is computationally feasible for the group sizes in our experiments
 ($n = 4, 5, 8$).
 
-\subsubsection{Toward a copresheaf formalization.}
+\subsubsection{The common receiving category and the signed involution.}
 \label{sec:copresheaf-future}
 
 The sheaf--copresheaf duality of Hajij et
 al.~\cite{hajij2025copresheaf} suggests a natural next step for the
 signed-laxator program: formalize~$\phi_G$ as a morphism in a
 category that carries both sheaf and copresheaf structure
-simultaneously.  On a communication graph~$G$, a \emph{sheaf}
-$\mathcal{F}$ assigns vector spaces to nodes with restriction maps on
-edges enforcing consistency, while a \emph{copresheaf}
-$\mathcal{G}$ assigns vector spaces with extension maps enabling
-directed flow.  The laxator~$\phi_G$ would then be a natural
-transformation $\mathcal{F} \Rightarrow \mathcal{G}$ whose
-components measure the local failure of consistency --- positive
-components opening the sheaf toward copresheaf-like exploration,
-negative components tightening it toward consensus.  This
-formalization would unify the three sign-flip observations of
-Section~3 within a single categorical framework and connect the
-evolutionary-dynamics perspective to the growing literature on
-sheaf-theoretic machine
-learning~\cite{hajij2025copresheaf,hernandez2026identity,sloboda2026composition}.
+simultaneously.  The construction below, due to C.~Vega (private
+communication), provides a concrete realization.
+
+\paragraph{The common receiving category.}
+Let $G = (V,E)$ be a communication graph and $\mathbb{F}$ a field
+(we work over $\mathbb{Q}$ throughout).  A sheaf
+$\mathcal{F} \in \mathrm{Sh}(G;\mathbb{F})$ assigns an
+$\mathbb{F}$-vector space~$\mathcal{F}(v)$ to each node~$v$ with
+restriction maps on edges enforcing consistency, while a copresheaf
+$\mathcal{G} \in \mathrm{CoSh}(G;\mathbb{F})$ assigns vector spaces
+with extension maps enabling directed flow without consistency
+constraints~\cite{hajij2025copresheaf}.  Both embed into a common
+target: the category of \emph{graded sections}
+\[
+  \Gamma_{\mathrm{gr}}(G;\mathbb{F})
+  \;=\;
+  \bigoplus_{v \in V} \mathcal{F}(v),
+\]
+the underlying graded vector space obtained via a forgetful functor
+that discards all compatibility data.  The sheaf functor lands in the
+\emph{equalizer image} --- the subspace of consistent sections
+satisfying all restriction conditions --- while the copresheaf functor
+lands in the \emph{colimit image} --- the quotient carrying
+forward-propagated sections.  The laxator $\phi_G$ is the comparison
+map between these two sub-objects of $\Gamma_{\mathrm{gr}}$.
+
+\paragraph{The signed involution.}
+Let $P_+$ denote the orthogonal projection onto the equalizer image
+(the sheaf-consistent subspace) and $P_-$ the projection onto its
+complement in $\Gamma_{\mathrm{gr}}$ (the colimit complement).  When
+$P_+$ and $P_-$ are orthogonal idempotents --- that is,
+$P_+^2 = P_+$, $P_-^2 = P_-$, $P_+ P_- = P_- P_+ = 0$, and
+$P_+ + P_- = I$ --- the comparison map
+\begin{equation}
+\label{eq:phi-involution}
+  \phi_G \;=\; P_+ \;-\; P_-
+\end{equation}
+satisfies $\phi_G^2 = \mathrm{id}$.  This decomposition splits the
+section space into a $+1$ eigenspace (sheaf-like: global sections,
+$H^0$) and a $-1$ eigenspace (copresheaf-like: obstructed modes
+that violate consistency).  The sign of $\phi_G$ on a given section
+records whether that section is driven toward consensus or toward
+divergence.
+
+\paragraph{Computational verification on $P_3$.}
+We verify the involution property on the path graph
+$P_3 = (v_1 - v_2 - v_3)$ with rank-$2$ fibers
+($\mathcal{F}(v_i) = \mathbb{Q}^2$ for each~$i$), the simplest
+non-trivial case.  All computations are exact over~$\mathbb{Q}$.
+\begin{enumerate}
+\item $\phi_G^2 = I_{6 \times 6}$, confirming the involution
+  property~\eqref{eq:phi-involution} exactly.
+\item $P_+$ and $P_-$ are orthogonal idempotents:
+  $P_+^2 = P_+$, $P_-^2 = P_-$, $P_+ P_- = P_- P_+ = 0$.
+\item Every $2 \times 2$ block of $\phi_G$ is a scalar multiple of
+  $I_2$, revealing complete decoupling of the rank-$2$ fibers.
+\item The $+1$ eigenspace has dimension~$2$, corresponding to
+  $H^0(P_3;\mathcal{F}) = \mathbb{Q}^2$; the $-1$ eigenspace has
+  dimension~$4$.
+\item $H^1(P_3;\mathcal{F}) = 0$, as expected for a tree graph.
+\end{enumerate}
+The $P_3$ result is initial verification on the simplest possible
+graph --- a tree with trivial first cohomology.  The test extends
+naturally to graphs with non-trivial~$H^1$ (e.g., the cycle $C_n$),
+where the $-1$ eigenspace should acquire additional structure reflecting
+the cohomological obstruction.
+
+\paragraph{Connection to Hecke structure.}
+The orthogonal idempotent decomposition $\phi_G = P_+ - P_-$ is
+formally identical to a structure in the Hecke algebra
+(C.~Vega, private communication).  In the Hecke algebra
+$\mathcal{H}_q(S_n)$, the symmetrizer decomposes as
+$\Pi_q = (1+q)^N \cdot \prod_i e_i$, where each $e_i^2 = e_i$.
+The $1/3$ uniform averaging that appears in the $P_3$ computation
+--- each vertex contributing equally to the global section ---
+recalls the group algebra idempotent $(1/|G|) \cdot \sum_g g$.
+This parallel suggests that the signed involution may extend to a
+$q$-deformation, with the Hecke parameter~$q$ playing the role of
+the task curvature~$\sigma$ from Section~\ref{sec:domain-dependent-activation}:
+$q = 1$ recovers the symmetric (sheaf-like) regime, $q = 0$
+the degenerate (copresheaf-like) regime.
+
+\paragraph{The vanishing condition.}
+When $H^1(G;\mathcal{F}) = 0$ --- equivalently, when identity sheaves
+suffice in the sense of Hernandez Caralt et
+al.~\cite{hernandez2026identity} --- the equalizer image spans all of
+$\Gamma_{\mathrm{gr}}$: every section is consistent, $P_+ = I$,
+$P_- = 0$, and $\phi_G = I$.  The comparison map is an isomorphism
+and no laxator is needed.  This confirms that the signed-laxator
+framework is activated precisely in the non-trivial cohomology regime.
+Conversely, when $H^1 \neq 0$, the $-1$ eigenspace is non-trivial,
+and the sign of $\phi_G$ on a given section measures the orientation
+mismatch between the sheaf and copresheaf images: positive when they
+agree (the section respects consistency), negative when reversed (the
+section violates it).  The three sign-flip observations of Section~3
+can thus be understood as manifestations of different sections falling
+on opposite sides of this eigenspace
+decomposition~\cite{hajij2025copresheaf,hernandez2026identity,sloboda2026composition,ghrist2026cup,hanks2025relative}.
+
+\paragraph{Algorithmic resolution via holonomy.}
+The HATCC algorithm of ter~Horst, Mahadevan, and
+Zambrano~\cite{terhorst2026categorical} provides a natural algorithmic
+complement to our obstruction theory.  Where our signed restriction maps
+characterise \emph{when} composition degrades diversity ($H^1 \neq 0$),
+HATCC provides a deterministic procedure for \emph{detecting} such
+obstructions via holonomy computation and \emph{resolving} them by
+compiling non-trivial holonomy into mode variables that partition the
+problem into exact sub-problems.  Their key result --- that the augmented
+graph after HATCC compilation is always a tree ($\beta_1 = 0$) --- means
+the obstruction is resolved structurally rather than iteratively.
+Adapting HATCC to signed sheaves, where transport kernels must respect
+the sign structure $\sigma = \pm 1$ of restriction maps, is a natural
+direction for future work.
 
 % ================================================================
 % NOTE FOR CLIO:
 %
-% Gaps that need your input:
+% Remaining gaps after Section 5.2.8 rewrite:
 %
-% 1. The relationship between commutator rank ordering and the
-%    *saturation ceiling* ordering is not straightforward.  On sudoku,
-%    Separated > Adjacent for saturation, which we interpret as
-%    "commutativity enables constructive superposition."  But this is
-%    the OPPOSITE of what you'd naively predict from "higher
-%    commutator rank = stronger interference = more diversity."  We
-%    need your algebraic perspective on why non-commutativity
-%    corresponds to a LOWER diversity ceiling.
-%
-% 2. The formal connection between irrep activation weights
-%    w_lambda(D) and Schur-convexity sigma is currently hand-waved.
-%    Ideally this would be a theorem: sigma determines the dominant
-%    irreps via some spectral condition on the task's aggregation
-%    function.
-%
-% 3. Section 5.3 (fiber rotation mechanism) should connect the
+% 1. Section 5.3 (fiber rotation mechanism) should connect the
 %    domain-dependent sign to the monodromy of the flat connection
 %    as kappa varies.  Does the sign-flip correspond to the fiber
 %    rotating through a singular point on the Riemann sphere?
 %
-% 4. The n=4 degeneracy: is there a clean algebraic explanation for
-%    why [1,3] and [2,4] commute?  I attributed it to disjoint
-%    transpositions, but you may see a deeper structure.
-%
-% 5. The Adjacent commutator rank being *exactly* constant (no
+% 2. The Adjacent commutator rank being *exactly* constant (no
 %    variance at all within each irrep) feels like it should have
 %    a clean proof.  Is this related to the palindromic structure
 %    you mentioned in the eigenvalue-positivity work?
+%
+% 3. Extend the P_3 verification to C_4 or C_5 (non-trivial H^1).
+%    The -1 eigenspace should pick up cohomological structure.
 % ================================================================

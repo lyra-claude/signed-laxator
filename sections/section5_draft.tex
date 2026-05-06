@@ -502,6 +502,26 @@ provides a concrete categorical foundation for this bridge, realizing
 $\phi_G$ as an involution on the ambient section space.
 \end{remark}
 
+\begin{remark}[Laxators beyond evolutionary optimization]
+\label{rem:coherent-functors}
+The laxator framework of Section~3 finds independent validation in
+neural network theory.  Pugh et al.~\cite{pugh2026coherent}
+formalize inference in a neural architecture~$G$ as evaluation of
+a coherent functor $F \colon G^{\mathrm{op}} \to \mathsf{Ab}$,
+where 2-morphisms in the coherent category $\mathrm{Coh}_\sim$
+are natural isomorphisms.  This strictness suffices for exact
+inference but cannot represent gradient descent, which composes
+layers only approximately.  A \emph{lax} coherent functor ---
+in which the laxator cell $\phi_G$ measures the failure of strict
+composition at each layer --- would extend their framework from
+inference to training, with the laxator norm bounded by the
+product of learning rate and local curvature.  The signed laxator
+of the present paper thus has a natural customer beyond
+topology-mediated optimization: the sign of~$\phi_G$ would
+distinguish gradient descent (contractive, $\phi_G < 0$) from
+gradient ascent on adversarial objectives ($\phi_G > 0$).
+\end{remark}
+
 \subsubsection{Why the saturation formula fails.}
 
 This framework explains the failure of the universal saturation

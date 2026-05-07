@@ -691,6 +691,54 @@ Adapting HATCC to signed sheaves, where transport kernels must respect
 the sign structure $\sigma = \pm 1$ of restriction maps, is a natural
 direction for future work.
 
+\begin{remark}[Tournament selection as quantale morphism]
+\label{rem:quantale-morphism}
+The fitness quantale $([0,\infty], \max, \leq)$ --- fitness values
+ordered by ``better than,'' with $\max$ as the monoidal product ---
+provides a natural algebraic setting for selection operators.
+Tournament selection of size~$k$ maps a population~$P$ to its
+$k$-best subset~$T_k(P)$.  This is a \emph{colax morphism} of the
+fitness quantale: the selected fitness satisfies
+$\max(T_k(P)) \leq \max(P)$, i.e., selection preserves the ordering
+but is not strict --- precisely the signature of a colax rather than
+strict morphism.
+
+The sign of the laxator encodes selection pressure direction:
+\begin{itemize}
+\item \textbf{Positive (colax):} exploitation.  Selection concentrates
+  fitness; the population moves toward $\max$.  This corresponds to
+  tournament selection, truncation selection --- any operator that
+  narrows the fitness distribution.
+\item \textbf{Negative (lax):} exploration.  Anti-selection or
+  diversity-preserving operators that broaden the fitness distribution.
+  Mutation, random immigration, novelty search.
+\end{itemize}
+The signed laxator~$\alpha_G$ at a graph~$G$ measures the net balance:
+positive means the topology facilitates exploitation (fitness
+concentration flows efficiently through the graph), negative means it
+facilitates exploration (the topology's cycle structure disrupts fitness
+concentration and maintains diversity).  This connects directly to the
+$\beta_1 \to \lambda_2$ hierarchy: high-$\beta_1$ graphs have more
+``exploration capacity'' precisely because cycles create alternative
+paths that resist the colax (concentrating) direction.
+
+The quantale perspective connects to the aggregation framework of
+Fructuoso-Bonet~\cite{fructuoso2026quantale}, who use quantale-valued
+sheaves to formalize how local fitness aggregates to global structure.
+Their quantale aggregation maps are colax morphisms in exactly the
+sense above; the signed laxator refines this by tracking whether the
+colax failure is exploitation-directed or exploration-directed.
+
+A speculative further connection: the quantale structure
+$([0,\infty], \max, \leq)$ and Clio's Hecke algebra $H(G,1)$ both
+capture ``structured composition with direction'' --- one for fitness
+values, one for group representations.  The signed involution
+$\phi_G = P_+ - P_-$ may act naturally on the fitness quantale via
+the Hecke operators, linking the representation-theoretic machinery
+of Section~\ref{sec:per-irrep-rank} to selection dynamics.  This
+remains speculative but suggests a deeper unification.
+\end{remark}
+
 % ================================================================
 % NOTE FOR CLIO:
 %
